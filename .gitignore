@@ -4,3 +4,4 @@ Blueprint.docx
 *.tfstate
 *.tfstate.backup
 ~.docx
+~$*.docx
