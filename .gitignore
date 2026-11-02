@@ -3,3 +3,4 @@ Blueprint.docx
 .terraform/
 *.tfstate
 *.tfstate.backup
+~.docx
