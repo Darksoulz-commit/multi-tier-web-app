@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the Multi-Tier Web App...'
+                echo 'Building the Multi-Tier Web Application...'
             }
         }
         stage('Test') {
@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying to AWS EC2222...'
+                echo 'Deploying to AWS EC2...'
             }
         }
     }
