@@ -17,8 +17,8 @@ pipeline {
             steps {
                 echo 'Deploying to TEST Environment...'
                 sh '''
-                    docker stop my-app-dev || true
-                    docker rm my-app-dev || true
+                    docker stop my-app-test || true
+                    docker rm my-app-test || true
                     docker run -d -p 8001:8000 --name my-app-dev multi-tier-app
                 '''
             }
@@ -43,8 +43,8 @@ pipeline {
             steps {
                 echo 'Deploying to PROD Environment...'
                 sh '''
-                    docker stop my-app-dev || true
-                    docker rm my-app-dev || true
+                    docker stop my-app-prod || true
+                    docker rm my-app-prod || true
                     docker run -d -p 8001:8000 --name my-app-dev multi-tier-app
                 '''
             }
