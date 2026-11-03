@@ -1,19 +1,18 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Building the Multi-Tier Web Application...'
+                sh 'docker build -t multi-tier-app .'
             }
         }
-        stage('Test') {
+        stage('Deploy to EC2') {
             steps {
-                echo 'Testing codeee...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying to AWS EC2...'
+                sh '''
+                    docker stop my-app || true
+                    docker rm my-app || true
+                    docker run -d -p 8000:8000 --name my-app multi-tier-app
+                '''
             }
         }
     }
