@@ -19,7 +19,7 @@ pipeline {
                 sh '''
                     docker stop my-app-test || true
                     docker rm my-app-test || true
-                    docker run -d -p 8001:8000 --name my-app-dev multi-tier-app
+                    docker run -d -p 8001:8000 --name my-app-test multi-tier-app
                 '''
             }
         }
@@ -45,7 +45,7 @@ pipeline {
                 sh '''
                     docker stop my-app-prod || true
                     docker rm my-app-prod || true
-                    docker run -d -p 8001:8000 --name my-app-dev multi-tier-app
+                    docker run -d -p 8001:8000 --name my-app-prod multi-tier-app
                 '''
             }
         }
