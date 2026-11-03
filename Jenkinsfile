@@ -2,14 +2,28 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'ENV', choices: ['test', 'dev', 'prod'], description: 'Deploy pana pora enviroment')
+        choice(name: 'ENV', choices: ['test', 'dev', 'prod'], description: 'Deploy panna pora enviroment')
     }
+    
     stages {
         stage('Build Docker image') {
             steps {
-                sh 'docker build -t multi-tier-app .'
+                // Image-a unga Docker Hub perula build panrom
+                sh 'docker build -t YOUR_DOCKER_USERNAME/multi-tier-app:latest .'
             }
         }
+        
+        // PUTHU STAGE: Image-a Docker Hub-kku anuppurathu
+        stage('Push to Docker Hub') {
+            steps {
+                // Namma set panna credentials-a use panni login panrom
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh 'docker push navi561/multi-tier-app:latest'
+                }
+            }
+        }
+        
         stage('Deploy to TEST') {
             when {
                 expression {params.ENV == 'test'}
@@ -19,10 +33,11 @@ pipeline {
                 sh '''
                     docker stop my-app-test || true
                     docker rm my-app-test || true
-                    docker run -d -p 8002:8000 --name my-app-test multi-tier-app
+                    docker run -d -p 8002:8000 --name my-app-test navi561/multi-tier-app:latest
                 '''
             }
         }
+        
         stage('Deploy to DEV') {
             when {
                 expression {params.ENV == 'dev'}
@@ -32,10 +47,11 @@ pipeline {
                 sh '''
                     docker stop my-app-dev || true
                     docker rm my-app-dev || true
-                    docker run -d -p 8001:8000 --name my-app-dev multi-tier-app
+                    docker run -d -p 8001:8000 --name my-app-dev navi561/multi-tier-app:latest
                 '''
             }
         }
+        
         stage('Deploy to PROD') {
             when {
                 expression {params.ENV == 'prod'}
@@ -45,7 +61,7 @@ pipeline {
                 sh '''
                     docker stop my-app-prod || true
                     docker rm my-app-prod || true
-                    docker run -d -p 8000:8000 --name my-app-prod multi-tier-app
+                    docker run -d -p 8000:8000 --name my-app-prod navi561/multi-tier-app:latest
                 '''
             }
         }
