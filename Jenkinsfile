@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying to AWS EC2...'
+                echo 'Deploying to AWS EC2222...'
             }
         }
     }
