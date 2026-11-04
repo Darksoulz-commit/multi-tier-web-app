@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_TAG = "v$env.BUILD_NUMBER}"
+        IMAGE_TAG = "v${env.BUILD_NUMBER}"
     }
 
     parameters {
