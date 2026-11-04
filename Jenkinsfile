@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    enviroment {
+        IMAGE_TAG = "v$env.BILD_NUMBER}"
+    }
+
     parameters {
         choice(name: 'ENV', choices: ['test', 'dev', 'prod'], description: 'Deploy panna pora enviroment')
     }
@@ -19,7 +23,7 @@ pipeline {
                 // Namma set panna credentials-a use panni login panrom
                 withCredentials([usernamePassword(credentialsId: 'Docker_Hub', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker push navi561/multi-tier-app:latest'
+                    sh 'docker push navi561/multi-tier-app:${IMAGE_TAG}'
                 }
             }
         }
