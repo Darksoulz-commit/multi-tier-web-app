@@ -9,7 +9,7 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 // Image-a unga Docker Hub perula build panrom
-                sh 'docker build -t YOUR_DOCKER_USERNAME/multi-tier-app:latest .'
+                sh 'docker build -t navi561/multi-tier-app:latest .'
             }
         }
         
