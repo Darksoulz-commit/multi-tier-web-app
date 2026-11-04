@@ -16,7 +16,14 @@ pipeline {
                 sh "docker build -t navi561/multi-tier-app:${IMAGE_TAG} ."
             }
         }
-        
+        //Test Stage
+        stage('Autometed Testing') {
+            steps {
+                echo 'Running test stage'
+                sh "docker run --rm ${IMAGE_NAME}:${IMAGE_TAG} pytest test_app.py"
+            }
+        }
+
         // PUTHU STAGE: Image-a Docker Hub-kku anuppurathu
         stage('Push to Docker Hub') {
             steps {
