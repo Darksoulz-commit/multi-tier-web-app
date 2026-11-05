@@ -20,7 +20,7 @@ pipeline {
         stage('Autometed Testing') {
             steps {
                 echo 'Running test stage'
-                sh "docker run --rm ${IMAGE_NAME}:${IMAGE_TAG} pytest test_app.py"
+                sh "docker run --rm navi561/multi-tier-app:${IMAGE_TAG} pytest test_app.py"
             }
         }
 
